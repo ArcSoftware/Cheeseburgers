@@ -1,6 +1,5 @@
 package com.theironyard.charlotte;
 
-import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
 import spark.ModelAndView;
 import spark.Spark;
 import spark.template.mustache.MustacheTemplateEngine;
@@ -12,23 +11,20 @@ public class Main {
     public static ArrayList<Cheeseburger> cheeseburgers = new ArrayList<>();
 
     public static void main(String[] args) {
+        Spark.staticFileLocation("/public");
 
         Spark.get(
                 "/",
                 ((request, response) -> {
                     HashMap m = new HashMap();
-                    return new ModelAndView(m, "root.html");
+                    m.put("cheeseburgers", cheeseburgers);
+                    return new ModelAndView(m, "Cheeseburger.html");
+
                 }),
                 new MustacheTemplateEngine()
         );
 
-        Spark.get(
-                "/new-cheeseburger",
-                (request, response) -> {
-                    HashMap m = new HashMap();
-                    return new ModelAndView(m, "newCheeseburger.html");
-                }
-        );
+
         Spark.post(
                 "/create-cheeseburger",
                 ((request, response) -> {
@@ -37,7 +33,7 @@ public class Main {
                     String patty = request.queryParams("patty");
                     String bun = request.queryParams("bun");
                     String bacon = request.queryParams("bacon");
-                    String special = request.queryParams("instructions");
+                    String special = request.queryParams("instruction");
                     Cheeseburger cb = new Cheeseburger(name, mayo, patty, bun, bacon, special);
                     cheeseburgers.add(cb);
 

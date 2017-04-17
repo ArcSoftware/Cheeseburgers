@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="/page.css">
+    <meta charset="UTF-8">
+    <title>Welcome!</title>
+</head>
+<body>
+<h1>
+    Welcome to Cheeseburger Hut!
+</h1>
+<h2>
+    Enter new order:
+    <form action="/create-cheeseburger" method="post">
+        <input type="text" placeholder="Order Name" name="orderName"/>
+        <input type="text" placeholder="Want Mayo?" name="mayo"/>
+        <input type="text" placeholder="How many Patties?" name="patty"/>
+        <input type="text" placeholder="How many Buns?" name="bun"/>
+        <input type="text" placeholder="How much Bacon?" name="bacon"/>
+        <input type="text" placeholder="Special Instructions" name="instruction"/>
+        <button type= "Post">Create</button>
+    </form>
+</h2>
+<ol>
+    {{#cheeseburgers}}
+<li>
+    <h3><b> Order Name: {{orderName}} <br></b></h3>
+    <p class="order-details">
+        Mayo: {{mayo}} <br>
+        Number of Patties: {{pattieNumber}} <br>
+        Number of Buns: {{bunNumber}} <br>
+        Amount of Bacon: {{baconNumber}} <br>
+        Special Instructions: {{specialInstruction}}<br>
+    </p>
+</li>
+    {{/cheeseburgers}}
+    </ol>
+
+</h2>
+</body>
+</html>
