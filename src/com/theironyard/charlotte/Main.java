@@ -1,5 +1,7 @@
 package com.theironyard.charlotte;
 
+import jodd.json.JsonParser;
+import jodd.json.JsonSerializer;
 import spark.ModelAndView;
 import spark.Spark;
 import spark.template.mustache.MustacheTemplateEngine;
@@ -41,5 +43,15 @@ public class Main {
                     return "";
                 })
         );
+
+        Spark.get("/api/cheeseburgers", (req, res) -> new JsonSerializer().serialize(cheeseburgers));
+
+        Spark.post("/api/cheeseburgers", (req, res) -> {
+            Cheeseburger cheese = new JsonParser().parse(req.body(), Cheeseburger.class);
+
+            cheeseburgers.add(cheese);
+
+            return "";
+        });
     }
 }
